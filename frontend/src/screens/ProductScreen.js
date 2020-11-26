@@ -10,7 +10,7 @@ import { listProductDetails } from '../actions/productAction'
 const ProductScreen = ({ history, match }) => {
 	const dispatch = useDispatch()
 
-	const [qty, setQty] = useState(0)
+	const [qty, setQty] = useState(1)
 
 	const productDetails = useSelector((state) => state.productDetails)
 	const { loading, error, product } = productDetails
