@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutStep'
+import { createOrder } from '../actions/orderActions'
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
 	const dipsatch = useDispatch()
 
 	const cart = useSelector((state) => state.cart)
@@ -18,7 +19,38 @@ const PlaceOrderScreen = () => {
 	cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
 	cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
-	const placeOrderHandler = () => {}
+	const orderCreate = useSelector((state) => state.orderCreate)
+	const { order, success, error } = orderCreate
+
+	useEffect(() => {
+		if (success) {
+			// eslint-disable-next-line
+			history.push(`/order/${order._id}`)
+		}
+	}, [history, success])
+
+	const placeOrderHandler = () => {
+		const {
+			cartItems,
+			shippingAddress,
+			paymentMethod,
+			itemsPrice,
+			shippingPrice,
+			taxPrice,
+			totalPrice,
+		} = cart
+		dipsatch(
+			createOrder({
+				cartItems,
+				shippingAddress,
+				paymentMethod,
+				itemsPrice,
+				shippingPrice,
+				taxPrice,
+				totalPrice,
+			})
+		)
+	}
 
 	return (
 		<div>
@@ -94,6 +126,7 @@ const PlaceOrderScreen = () => {
 									<Col>${cart.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
+							<ListGroup.Item>{error && <Message variant='danger'>{error}</Message>}</ListGroup.Item>
 							<ListGroup.Item>
 								<Button
 									type='button'
