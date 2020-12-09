@@ -41,7 +41,7 @@ const PlaceOrderScreen = ({ history }) => {
 		} = cart
 		dipsatch(
 			createOrder({
-				cartItems,
+				orderItems: cartItems,
 				shippingAddress,
 				paymentMethod,
 				itemsPrice,
