@@ -7,7 +7,7 @@ import CheckoutSteps from '../components/CheckoutStep'
 import { createOrder } from '../actions/orderActions'
 
 const PlaceOrderScreen = ({ history }) => {
-	const dipsatch = useDispatch()
+	const dispatch = useDispatch()
 
 	const cart = useSelector((state) => state.cart)
 	const addDecimals = (number) => {
@@ -39,7 +39,7 @@ const PlaceOrderScreen = ({ history }) => {
 			taxPrice,
 			totalPrice,
 		} = cart
-		dipsatch(
+		dispatch(
 			createOrder({
 				orderItems: cartItems,
 				shippingAddress,
