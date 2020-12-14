@@ -1,6 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
