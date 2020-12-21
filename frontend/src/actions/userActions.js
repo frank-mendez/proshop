@@ -93,8 +93,12 @@ export const register = (name, email, password) => async (dispatch) => {
 	}
 }
 
-export const getUserDetails = (id, token) => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch, getState) => {
 	try {
+		const {
+			userLogin: { userInfo },
+		} = getState()
+
 		dispatch({
 			type: USER_DETAILS_REQUEST,
 		})
@@ -102,7 +106,7 @@ export const getUserDetails = (id, token) => async (dispatch, getState) => {
 		const config = {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${userInfo.token}`,
 			},
 		}
 
@@ -197,11 +201,8 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 			},
 		}
 
-		const { data } = await axios.delete(`/api/users/${id}`, config)
-
 		dispatch({
 			type: USER_DELETE_SUCCESS,
-			payload: data,
 		})
 	} catch (error) {
 		dispatch({
