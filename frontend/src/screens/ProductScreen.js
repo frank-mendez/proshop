@@ -5,7 +5,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listProductDetails } from '../actions/productAction'
+import { listProductDetails } from '../actions/productActions'
 
 const ProductScreen = ({ history, match }) => {
 	const dispatch = useDispatch()
